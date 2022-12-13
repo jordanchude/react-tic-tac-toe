@@ -38,12 +38,27 @@ function Square(props) {
       onClick={() => this.handleClick(i)}
       />;
     }
+
+    isBoardFull() {
+      for (let square of this.state.squares) {
+        if (square == null) {
+          return false;
+        }
+      }
+
+      return true;
+    }
   
     render() {
       const winner = calculateWinner(this.state.squares);
       let status;
       if (winner) {
         status = `Winner: ${winner}`
+      } else if (this.isBoardFull() && !winner) {
+        // if board is full and there's no winner
+        // status is "It's a tie! Try again"
+
+        status = "It is a tie! try again!";
       } else {
         status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
       }
